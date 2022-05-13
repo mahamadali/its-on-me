@@ -6,119 +6,307 @@ class MerchantController extends CI_Controller {
 	public $data; 
 
 	public function __construct(){
-        parent::__construct();
-        $this->data['header'] = $this->load->view('header',$this->data,true);
-        $this->data['footer'] = $this->load->view('footer',$this->data,true);
-        $this->load->model('Merchant', 'merchant');
-        $this->load->helper(array('form', 'general'));
-    }
+    parent::__construct();
+    $this->data['header'] = $this->load->view('header',$this->data,true);
+    $this->data['footer'] = $this->load->view('footer',$this->data,true);
+    $this->load->model('Merchant', 'merchant');
+    $this->load->helper(array('form', 'general'));
+  }
 
-    public function index()
-    {      
+  public function index()
+  {      
 
-       if(!$this->session->userdata('admin'))
-       {
-           redirect('/');
-       }
-
-
-       $this->data['page'] = "user/index";
-       $this->load->view('structure',$this->data);  
-
+   if(!$this->session->userdata('admin'))
+   {
+     redirect('/');
    }
 
-   public function create()
-   {
-      $this->data['provinces'] = provinces();
-      $this->data['page'] = "user/create";   
-      $this->load->view('structure',$this->data); 
-  }
-  public function store(){
-      $UsersData = $this->input->post();
-      $UsersData['password'] = md5($UsersData['password']);
-      $checkUsernameAvailable = $this->user->findByColumn('username', $UsersData['username']);
-      if($checkUsernameAvailable  > 0) {
-        $this->session->set_flashdata('warning', 'Username already exist!');
-        redirect('users/create');
-      }
-      $checkEmailAvailable = $this->user->findByColumn('email', $UsersData['email']);
-      if($checkEmailAvailable  > 0) {
-        $this->session->set_flashdata('warning', 'Email already exist!');
-        redirect('users/create');
-      }
 
-      $User_id = $this->user->insert_data_getid($UsersData,'users');
+   $this->data['page'] = "merchant/index";
+   $this->load->view('structure',$this->data);  
 
-      if (!empty($User_id)) {
-          $this->session->set_flashdata('success', 'User created successfully!');
+ }
 
-      }else{
-        $this->session->set_flashdata('error', 'Something Wrong!');
-
-    }
-    
-    redirect('users');
+ public function create()
+ {
+  $this->data['categories'] = categories();
+  $this->data['page'] = "merchant/create";   
+  $this->load->view('structure',$this->data); 
 }
+public function store(){
+  $MerchantsData = $this->input->post();
+  $MerchantsData['password'] = md5($MerchantsData['password']);
+  $MerchantsData['categories'] = implode(',',$MerchantsData['categories']);
+  $MerchantsData['created_at'] = date('Y-m-d H:i:s');
 
-public function delete($id){
+  if(!empty($_FILES['profile_picture']['name'])){ 
+    $filename = time()."_".str_replace(' ','_',$_FILES['profile_picture']['name']);
+    $_FILES['file']['name']     = $filename; 
+    $_FILES['file']['type']     = $_FILES['profile_picture']['type']; 
+    $_FILES['file']['tmp_name'] = $_FILES['profile_picture']['tmp_name']; 
+    $_FILES['file']['error']     = $_FILES['profile_picture']['error']; 
+    $_FILES['file']['size']     = $_FILES['profile_picture']['size']; 
+
+    $uploadPath = 'assets/merchant_profile/'; 
+    $config['upload_path'] = $uploadPath; 
+    $config['allowed_types'] = '*'; 
+    $this->load->library('upload', $config); 
+    $this->upload->initialize($config); 
+    if($this->upload->do_upload('file')){ 
+      $fileData = $this->upload->data(); 
+      $uploadData = "assets/merchant_profile/".$filename; 
+    }else{  
+      $errorUploadType .= $_FILES['file']['name'].' | ';  
+    }
+  }
 
 
-  $user_id = $this->user->delete_data('admin','id',$id);
+  $MerchantsData['profile_picture'] = $uploadData;
+  $checkUsernameAvailable = $this->merchant->findByColumn('username', $MerchantsData['username']);
+  if($checkUsernameAvailable  > 0) {
+    $this->session->set_flashdata('warning', 'Username already exist!');
+    redirect('merchants/create');
+  }
+  $checkEmailAvailable = $this->merchant->findByColumn('email', $MerchantsData['email']);
+  if($checkEmailAvailable  > 0) {
+    $this->session->set_flashdata('warning', 'Email already exist!');
+    redirect('merchants/create');
+  }
 
-  if(!empty($user_id)) {
-      $this->session->set_flashdata('success', 'User deleted successfully!');
+  $Merchant_id = $this->merchant->insert_data_getid($MerchantsData,'merchants');
+
+  if (!empty($Merchant_id)) {
+    $this->session->set_flashdata('success', 'Merchant created successfully!');
 
   }else{
     $this->session->set_flashdata('error', 'Something Wrong!');
 
+  }
+
+  redirect('merchants');
 }
 
-redirect('user');
+public function delete($id){
+
+  $getImage = merchantProfile($id);
+  @unlink('assets/merchant_profile/'.basename($getImage));
+  $merchant_id = $this->merchant->delete_data('merchants','id',$id);
+
+  if(!empty($merchant_id)) {
+    $this->session->set_flashdata('success', 'Merchant deleted successfully!');
+
+  }else{
+    $this->session->set_flashdata('error', 'Something Wrong!');
+
+  }
+
+  redirect('merchants');
 }
 
 
-public function get_users()
+public function get_merchants()
 {
-    $fetch_data = $this->user->make_datatables();  
-    $data = array();  
-    foreach($fetch_data as $row)  
-    {  
-        $sub_array = array();    
-        $sub_array[] = $row->first_name;  
-        $sub_array[] = $row->last_name;  
-        $sub_array[] = $row->email;  
-        $sub_array[] = $row->username;  
-        $sub_array[] = $row->phone;  
-        $sub_array[] = province($row->province)->name;
-        $sub_array[] = '<strong>'.userStatus($row->status).'</strong>';
-        $actionBtn = '';
-        if($row->status == 0 || $row->status == 1) {
-          $actionBtn = '
-          <a href="'.base_url().'users/status-change/'.$row->id.'/2" class="btn btn-sm btn-danger">BAN</a>
-          ';
-        } else if($row->status == 2) {
-          $actionBtn = '
-          <a href="'.base_url().'users/status-change/'.$row->id.'/1" class="btn btn-sm btn-success">Active</a>';
-        }
-        $sub_array[] = $actionBtn;
-        $data[] = $sub_array;  
-    }  
-    $output = array(  
-        "draw"                    =>     intval($_POST["draw"]),  
-        "recordsTotal"          =>      $this->user->get_all_data(),  
-        "recordsFiltered"     =>     $this->user->get_filtered_data(),  
-        "data"                    =>     $data  
-    );  
-    echo json_encode($output);  
+  $fetch_data = $this->merchant->make_datatables();  
+  $data = array();  
+  foreach($fetch_data as $row)  
+  {  
+    $sub_array = array();    
+    $sub_array[] = '<img src='.$row->profile_picture.' style="height:50px;width:50px">';  
+    $sub_array[] = $row->username;  
+    $sub_array[] = $row->email;    
+    if($row->status == 0) {
+      $sub_array[] = 'Suspend';
+    } else if($row->status == 1) {
+     $sub_array[] = 'Active</a>';
+   }
+   $actionBtn = '';
+   if($row->status == 0) {
+    $actionBtn = '
+    <a href="'.base_url().'merchants/status-change/'.$row->id.'/1" class="btn btn-sm btn-success">Active</a>
+    <a href="'.base_url().'merchants/edit/'.$row->id.'" class="btn btn-sm btn-info">Edit</a>
+    <a href="'.base_url().'merchants/delete/'.$row->id.'" class="btn btn-sm btn-danger">Delete</a>
+    <a href="'.base_url().'merchants/list-bank/'.$row->id.'" class="btn btn-sm btn-warning"><i class="fa fa-plus"></i> Bank</a>
+    ';
+  } else if($row->status == 1) {
+    $actionBtn = '
+    <a href="'.base_url().'merchants/status-change/'.$row->id.'/0" class="btn btn-sm btn-danger">Suspend</a>
+    <a href="'.base_url().'merchants/edit/'.$row->id.'" class="btn btn-sm btn-info">Edit</a>
+    <a href="'.base_url().'merchants/delete/'.$row->id.'" class="btn btn-sm btn-danger">Delete</a>
+    <a href="'.base_url().'merchants/list-bank/'.$row->id.'" class="btn btn-sm btn-warning"><i class="fa fa-plus"></i> Bank</a>
+    ';
+  }
+  $sub_array[] = $actionBtn;
+  $data[] = $sub_array;  
+}  
+$output = array(  
+  "draw"                    =>     intval($_POST["draw"]),  
+  "recordsTotal"          =>      $this->merchant->get_all_data(),  
+  "recordsFiltered"     =>     $this->merchant->get_filtered_data(),  
+  "data"                    =>     $data  
+);  
+echo json_encode($output);  
 
 }
 
 public function statusChange($id, $status) {
 
   $data = array('status' => $status);
-  $this->user->updateColumn($data, $id);
+  $this->merchant->updateColumn($data, $id);
   $this->session->set_flashdata('success', 'Status updated successfully!');
-  redirect('users');
+  redirect('merchants');
 }  
+
+
+public function edit($id)
+{
+  $this->data['merchant_data'] = $this->merchant->get_merchant_data($id);
+  $this->data['categories'] = categories();
+   // print_r($this->data['merchant_data']->profile_picture);exit();
+  $this->data['page'] = "merchant/edit";
+  $this->load->view('structure',$this->data);  
+}
+
+public function update()
+{
+
+      //echo "<pre>";print_r($MerchantsData);exit();
+  $MerchantsData = $this->input->post();
+      //$updated_id = $this->input->post('merchant_edit_id');
+  $merchant_edit_id = $this->input->post('merchant_edit_id');
+  $MerchantsData['password'] = md5($MerchantsData['password']);
+  $MerchantsData['categories'] = implode(',',$MerchantsData['categories']);
+  $MerchantsData['updated_at'] = date('Y-m-d H:i:s');
+
+  if(!empty($_FILES['profile_picture']['name'])){ 
+    $getImage = merchantProfile($merchant_edit_id);
+    @unlink('assets/merchant_profile/'.basename($getImage));
+    $filename = time()."_".str_replace(' ','_',$_FILES['profile_picture']['name']);
+    $_FILES['file']['name']     = $filename; 
+    $_FILES['file']['type']     = $_FILES['profile_picture']['type']; 
+    $_FILES['file']['tmp_name'] = $_FILES['profile_picture']['tmp_name']; 
+    $_FILES['file']['error']     = $_FILES['profile_picture']['error']; 
+    $_FILES['file']['size']     = $_FILES['profile_picture']['size']; 
+
+    $uploadPath = 'assets/merchant_profile/'; 
+    $config['upload_path'] = $uploadPath; 
+    $config['allowed_types'] = '*'; 
+    $this->load->library('upload', $config); 
+    $this->upload->initialize($config); 
+    if($this->upload->do_upload('file')){ 
+      $fileData = $this->upload->data(); 
+      $uploadData = "assets/merchant_profile/".$filename; 
+    }else{  
+      $errorUploadType .= $_FILES['file']['name'].' | ';  
+    }
+  }
+
+  if(!empty($uploadData))
+  {
+    $MerchantsData['profile_picture'] = $uploadData;
+  }
+
+  $checkUsernameAvailable = $this->merchant->findByColumnId('username', $MerchantsData['username'],$merchant_edit_id);
+  if($checkUsernameAvailable  > 0) {
+    $this->session->set_flashdata('warning', 'Username already exist!');
+    redirect('merchants/edit/'.$merchant_edit_id);
+  }
+  $checkEmailAvailable = $this->merchant->findByColumnId('email', $MerchantsData['email'],$merchant_edit_id);
+  if($checkEmailAvailable  > 0) {
+    $this->session->set_flashdata('warning', 'Email already exist!');
+    redirect('merchants/edit/'.$merchant_edit_id);
+  }
+
+  
+
+  unset($MerchantsData['merchant_edit_id']);
+      //$Merchant_id = $this->merchant->insert_data_getid($MerchantsData,'merchants');
+  $Merchant_id = $this->merchant->update_merchant_detail($merchant_edit_id,$MerchantsData);
+  if (!empty($Merchant_id)) {
+    $this->session->set_flashdata('success', 'Merchant updated successfully!');
+
+  }else{
+    $this->session->set_flashdata('error', 'Something Wrong!');
+
+  }
+
+  redirect('merchants');
+
+}
+
+
+public function banks($id)
+{
+ $this->data['merchant_bank_list'] = $this->merchant->get_merchant_bank_list($id);
+ $this->data['merchant_id'] = $id;
+ $this->data['page'] = "merchant/list_banks";
+ $this->load->view('structure',$this->data);  
+}
+
+public function add_bank($id)
+{
+  $this->data['merchant_id'] = $id;
+  $this->data['page'] = "merchant/add_bank";
+  $this->load->view('structure',$this->data); 
+}
+
+public function store_bank()
+{
+ $MerchantbankData = $this->input->post();
+ $MerchantbankData['created_at'] = date('Y-m-d H:i:s');
+ $Merchant_id = $this->merchant->insert_data_getid($MerchantbankData,'merchant_banks');
+
+ if (!empty($Merchant_id)) {
+  $this->session->set_flashdata('success', 'Merchant Bank created successfully!');
+
+}else{
+  $this->session->set_flashdata('error', 'Something Wrong!');
+
+}
+
+redirect('merchants/list-bank/'.$MerchantbankData['merchant_id']);
+
+}
+
+public function delete_bank($id,$merchant_id){
+
+  $delete_bank_id = $this->merchant->delete_data('merchant_banks','id',$id);
+
+  if(!empty($delete_bank_id)) {
+    $this->session->set_flashdata('success', 'Merchant Bank deleted successfully!');
+
+  }else{
+    $this->session->set_flashdata('error', 'Something Wrong!');
+
+  }
+
+  redirect('merchants/list-bank/'.$merchant_id);
+}
+
+ public function edit_bank($id,$merchant_id)
+{
+  $this->data['merchant_bank_data'] = $this->merchant->get_merchant_bank_data($id);
+  $this->data['page'] = "merchant/edit_bank";
+  $this->load->view('structure',$this->data);  
+}
+
+ public function update_bank()
+{
+  $UpdatedMerchantbankData = $this->input->post();
+ 
+  $edit_bank_id = $this->input->post('edit_bank_id');
+  $UpdatedMerchantbankData['created_at'] = date('Y-m-d H:i:s');
+    unset($UpdatedMerchantbankData['edit_bank_id']);
+  $Merchant_id = $this->merchant->update_merchant_bank_detail($edit_bank_id,$UpdatedMerchantbankData);
+  if (!empty($Merchant_id)) {
+    $this->session->set_flashdata('success', 'Merchant Bank updated successfully!');
+
+  }else{
+    $this->session->set_flashdata('error', 'Something Wrong!');
+
+  }
+
+  redirect('merchants/list-bank/'.$UpdatedMerchantbankData['merchant_id']);
+}
+
 
 }

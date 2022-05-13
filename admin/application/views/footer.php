@@ -69,6 +69,23 @@
       },  
     });
 
+     var merchant_datatable = $('#merchant-list').DataTable({  
+      "processing":true,  
+      "serverSide":true,  
+      "order":[],  
+      "ajax":{  
+           url:"<?php echo base_url(); ?>merchants/ajax_list",
+           type:"POST"  
+      },  
+    });
+
+    /*const datatablesSimple = document.getElementById('merchant-bank-list');
+    if (datatablesSimple) {
+     new simpleDatatables.DataTable(datatablesSimple, {
+      'paging': true
+     });
+   }*/
+
     const datatablesSimple = document.getElementById('product_list');
     if (datatablesSimple) {
      new simpleDatatables.DataTable(datatablesSimple, {
@@ -386,6 +403,13 @@
  
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script type="text/javascript">
+        $('#multiple').select2({
+          placeholder: "Select a programming language",
+          allowClear: true
+      });
+      </script>
 </body>
 
 </html>

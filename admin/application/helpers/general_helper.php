@@ -12,6 +12,20 @@ function province($id) {
 	return $query->row();
 }
 
+function categories() {
+	$CI =& get_instance();
+	$query  =  $CI->db->get('categories');
+	return $query->result();
+}
+
+function merchantProfile($id) {
+	$CI =& get_instance();
+	$CI->db->where('id', $id);
+	$query  =  $CI->db->get('merchants');
+	return $query->row()->profile_picture;
+}
+
+
 function userStatus($status) {
 	switch ($status) {
 		case '2':

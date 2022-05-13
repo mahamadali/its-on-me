@@ -71,6 +71,15 @@ $route['merchants/ajax_list'] = 'MerchantController/get_merchants';
 $route['merchants/create'] = 'MerchantController/create';
 $route['merchants/store'] = 'MerchantController/store';
 $route['merchants/status-change/(:any)/(:any)'] = 'MerchantController/statusChange/$1/$2';
+$route['merchants/delete/(:any)'] = 'MerchantController/delete/$1';
+$route['merchants/edit/(:any)'] = 'MerchantController/edit/$1';
+$route['merchants/update'] = 'MerchantController/update';
+$route['merchants/list-bank/(:any)'] = 'MerchantController/banks/$1';
+$route['merchants/add-bank/(:any)'] = 'MerchantController/add_bank/$1';
+$route['merchants/store-bank'] = 'MerchantController/store_bank/';
+$route['merchants/delete-merchant-bank/(:any)/(:any)'] = 'MerchantController/delete_bank/$1/$2';
+$route['merchants/edit-merchant-bank/(:any)/(:any)'] = 'MerchantController/edit_bank/$1/$2';
+$route['merchants/update-bank'] = 'MerchantController/update_bank';
 /*END USERS ROUTES*/
 
 

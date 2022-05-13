@@ -2,7 +2,7 @@
 class Product_categories_model extends CI_Model
 {
 
-     var $table = "product_categories";  
+     var $table = "categories";  
     var $select_column = array("id","name","has_multiple_color","created_at","updated_at","deleted_at"); 
      public function __construct()
     {

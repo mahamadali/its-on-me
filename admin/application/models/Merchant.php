@@ -1,9 +1,9 @@
 <?php
-class User extends CI_Model
+class Merchant extends CI_Model
 {
 
      var $table = "merchants";  
-    var $select_column = array("id","first_name","last_name", "email", "password","username","phone","province","status","created_at","updated_at"); 
+    var $select_column = array("id","username","email","password","bio","profile_picture","physical_address","categories","status","created_at","updated_at"); 
      public function __construct()
     {
         parent::__construct();
@@ -17,7 +17,7 @@ class User extends CI_Model
            $this->db->from($this->table);  
            if(isset($_POST["search"]["value"]))  
            {  
-                $this->db->like("first_name", $_POST["search"]["value"]);  
+                $this->db->like("username", $_POST["search"]["value"]);  
                 $this->db->or_like("email", $_POST["search"]["value"]);  
            }  
            if(isset($_POST["order"]))  
@@ -78,6 +78,17 @@ class User extends CI_Model
         }
     }
 
+    function findByColumnId($columnname, $value,$id) {
+        $this->db->where($columnname, $value);
+        $this->db->where('id !=', $id);
+        $query = $this->db->get($this->table);
+        if($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return $query->num_rows();
+        }
+    }
+
     function updateColumn($data, $id) {
         $this->db->where('id', $id);
         $this->db->update($this->table, $data);
@@ -88,4 +99,39 @@ class User extends CI_Model
         $response['total_users'] = count($this->get_all_data());
         return $response;
     }
+
+
+    function get_merchant_data($id)  
+      {  
+          $this->db->where('id', $id);
+          $query = $this->db->get($this->table);
+          return $query->row(); 
+      } 
+
+     function update_merchant_detail($id,$data) {
+          $this->db->where('id', $id);
+          $que = $this->db->update($this->table, $data);
+          return $que;
+    } 
+
+     function get_merchant_bank_list($id)  
+      {  
+          $this->db->where('merchant_id', $id);
+          $query = $this->db->get('merchant_banks');
+          return $query->result_array(); 
+      } 
+
+      function get_merchant_bank_data($id)  
+      {  
+          $this->db->where('id', $id);
+          $query = $this->db->get('merchant_banks');
+          return $query->row(); 
+      } 
+
+       function update_merchant_bank_detail($id,$data) {
+          $this->db->where('id', $id);
+          $que = $this->db->update('merchant_banks', $data);
+          return $que;
+    } 
+ 
 }
