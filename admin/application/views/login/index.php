@@ -8,8 +8,8 @@
   <meta name="author" content="GUA">
   <title><?php echo config_item('app_name'); ?></title>
   <!-- Favicon -->
-  <link href="<?php echo base_url('assets/img/favicon.ico') ?>" rel="icon">
-  <link href="<?php echo base_url('assets/img/brand/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+  <link href="<?php echo base_url('assets/img/IOM-logo.png') ?>" rel="icon">
+  <link href="<?php echo base_url('assets/img/IOM-logo.png') ?>" rel="apple-touch-icon">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -24,7 +24,7 @@
   <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="<?php echo base_url() ?>">
-        <img src="<?php echo base_url() ?>assets/img/brand/gua_black.png">
+        <img src="<?php echo base_url() ?>assets/img/IOM-logo.png">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -125,19 +125,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary border-0 mb-0">
-            <!-- <div class="card-header bg-transparent pb-5">
-              <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
-              <div class="btn-wrapper text-center">
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="<?php //echo base_url() ?>assets/img/icons/common/github.svg"></span>
-                  <span class="btn-inner--text">Github</span>
-                </a>
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="<?php//echo base_url() ?>assets/img/icons/common/google.svg"></span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
-            </div> -->
+            
             <div class="card-body px-lg-5 ">
               <div class="text-center text-muted mb-4">
                 <small>sign in with credentials</small>
@@ -166,26 +154,20 @@
                     <input class="form-control" placeholder="Password" type="password" id="password" name="password">
                   </div>
                 </div>
-                <!-- <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
-                </div> -->
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary my-4">Sign in</button>
                 </div>
               </form>
             </div>
           </div>
-          <!-- <div class="row mt-3">
+          <div class="row mt-3">
             <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
+              <!-- <a href="#" class="text-light"><small>Forgot password?</small></a> -->
             </div>
             <div class="col-6 text-right">
-              <a href="#" class="text-light"><small>Create new account</small></a>
+              <a href="#" class="text-light"><small>Merchant Login</small></a>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -199,22 +181,6 @@
             &copy; <?php echo date('Y') ?> <a href="javascript:void(0)" class="font-weight-bold ml-1"><?php echo config_item('app_name'); ?></a>
           </div>
         </div>
-        <!-- <div class="col-xl-6">
-          <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
-          </ul>
-        </div> -->
       </div>
     </div>
   </footer>
