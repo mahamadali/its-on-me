@@ -88,4 +88,16 @@ class User extends CI_Model
         $response['total_users'] = count($this->get_all_data());
         return $response;
     }
+
+    function checkLogin($data) {
+        // $this->updateColumn(['password' => md5('12345678')], 3);
+        $this->db->where('email', $data['email']);
+        $this->db->where('password', md5($data['password']));
+        $query = $this->db->get('users');
+        if($query->num_rows() > 0) {
+            return $response = $query->row_array();
+        } else {
+            return false;
+        }
+    }
 }

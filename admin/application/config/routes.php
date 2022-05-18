@@ -235,3 +235,7 @@ $route['site_visitors'] = 'ReportController/site_visitors';
 
 $route['corporate_members'] = 'Members/corporate_members';
 
+
+
+/*API ROUTES*/
+$route['api/login'] = 'api/Auth/login';
