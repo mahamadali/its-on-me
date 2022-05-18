@@ -21,12 +21,56 @@ class Auth extends REST_Controller {
      *
      * @return Response
     */
+    public function province_get()
+    {
+        $response = $this->db->get('provinces')->result_array();
+        $this->response(['status' => 'success', 'data' => $response], REST_Controller::HTTP_OK);
+    }
+
+    /**
+     * Get All Data from this method.
+     *
+     * @return Response
+    */
     public function login_post()
     {
         $input = $this->input->post();
         $response = $this->user->checkLogin($input);
         if($response) {
             $this->response(['status' => 'success', 'data' => $response], REST_Controller::HTTP_OK);    
+        } else {
+            $this->response(['status' => 'failed', 'message' => 'Incorrect login credentials!'], REST_Controller::HTTP_OK);
+        }
+        
+    }
+
+    public function register_post()
+    {
+        $input = $this->input->post();
+
+        if($input['password'] != $input['confirmPassword']) {
+            return $this->response(['status' => 'failed', 'message' => 'Password and Confirm password must be same!'], REST_Controller::HTTP_OK);
+        }
+
+        $emailCount = $this->user->findByColumn('email', $input['email']);
+        
+        if(!empty($emailCount)) {
+            return $this->response(['status' => 'failed', 'message' => 'Email already exist'], REST_Controller::HTTP_OK);
+        }
+
+        $data = [
+            'first_name' => $input['firstname'],
+            'last_name' => $input['surname'],
+            'dob' => $input['dob'],
+            'phone' => $input['phoneNumber'],
+            'email' => $input['email'],
+            'password' => md5($input['password']),
+            'province' => $input['province']
+        ];
+        
+        $id = $this->user->insert_data_getid($data, 'users');
+        if($id) {
+            $this->response(['status' => 'success', 'message' => 'Account created successfully', 'user_id' => $id], REST_Controller::HTTP_OK);
         } else {
             $this->response(['status' => 'failed', 'message' => 'Incorrect login credentials!'], REST_Controller::HTTP_OK);
         }
