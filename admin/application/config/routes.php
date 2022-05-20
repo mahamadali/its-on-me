@@ -244,3 +244,4 @@ $route['api/register'] = 'api/Auth/register';
 $route['api/forgot-password'] = 'api/Auth/forgotPassword';
 $route['api/verify-email-code'] = 'api/Auth/verifyEmailCode';
 $route['api/reset-password'] = 'api/Auth/resetPassword';
+$route['api/categories'] = 'api/Product/categories';
