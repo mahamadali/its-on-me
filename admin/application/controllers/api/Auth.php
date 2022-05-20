@@ -76,5 +76,31 @@ class Auth extends REST_Controller {
         }
         
     }
+
+    public function forgotPassword_post()
+    {
+        $input = $this->input->post();
+
+        $emailCount = $this->user->findByColumn('email', $input['email']);
+        
+        if(empty($emailCount)) {
+            return $this->response(['status' => 'failed', 'message' => 'Email does not exist'], REST_Controller::HTTP_OK);
+        }
+
+        $id = $emailCount->id;
+
+        $code = rand(111111, 999999);
+        $data = [
+            'verification_code' => $code,
+        ];
+        
+        $this->user->updateColumn($data, $id);
+        if($id) {
+            $this->response(['status' => 'success', 'message' => 'verification code sent to email', 'user_id' => $id, 'code' => $code], REST_Controller::HTTP_OK);
+        } else {
+            $this->response(['status' => 'failed', 'message' => 'Something went wrong!'], REST_Controller::HTTP_OK);
+        }
+        
+    }
     	
 }

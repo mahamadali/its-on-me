@@ -241,3 +241,4 @@ $route['corporate_members'] = 'Members/corporate_members';
 $route['api/login'] = 'api/Auth/login';
 $route['api/province'] = 'api/Auth/province';
 $route['api/register'] = 'api/Auth/register';
+$route['api/forgot-password'] = 'api/Auth/forgotPassword';
