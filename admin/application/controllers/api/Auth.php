@@ -114,9 +114,27 @@ class Auth extends REST_Controller {
         $this->email->send();
 
         if($id) {
-            $this->response(['status' => 'success', 'message' => 'verification code sent to email', 'user_id' => $id, 'code' => $code], REST_Controller::HTTP_OK);
+            $this->response(['status' => 'success', 'message' => 'verification code sent to email', 'user_id' => $id, 'code' => $code, 'email' => $emailCount->email], REST_Controller::HTTP_OK);
         } else {
             $this->response(['status' => 'failed', 'message' => 'Something went wrong!'], REST_Controller::HTTP_OK);
+        }
+        
+    }
+
+    public function verifyEmailCode_post()
+    {
+        $input = $this->input->post();
+
+        $emailCount = $this->user->findByColumn('email', $input['email']);
+        
+        if(empty($emailCount)) {
+            return $this->response(['status' => 'failed', 'message' => 'Email does not exist'], REST_Controller::HTTP_OK);
+        }
+
+        if($input['code'] == $emailCount->verification_code) {
+            $this->response(['status' => 'success', 'message' => 'Code correct'], REST_Controller::HTTP_OK);
+        } else {
+            $this->response(['status' => 'failed', 'message' => 'Incorrect Code'], REST_Controller::HTTP_OK);
         }
         
     }
