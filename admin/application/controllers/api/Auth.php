@@ -132,9 +132,33 @@ class Auth extends REST_Controller {
         }
 
         if($input['code'] == $emailCount->verification_code) {
-            $this->response(['status' => 'success', 'message' => 'Code correct'], REST_Controller::HTTP_OK);
+            $this->response(['status' => 'success', 'message' => 'Code correct', 'user_id' => $emailCount->id], REST_Controller::HTTP_OK);
         } else {
             $this->response(['status' => 'failed', 'message' => 'Incorrect Code'], REST_Controller::HTTP_OK);
+        }
+        
+    }
+
+    public function resetPassword_post()
+    {
+        $input = $this->input->post();
+
+        if(strlen($input['password']) < 6) {
+            return $this->response(['status' => 'failed', 'message' => 'Password must be greater than 6 characters'], REST_Controller::HTTP_OK);
+        }
+
+        if($input['password'] != $input['confirmPassword']) {
+            return $this->response(['status' => 'failed', 'message' => 'Password and Confirm password must be same!'], REST_Controller::HTTP_OK);
+        }
+
+        $data = [
+            'password' => md5($input['password']),
+        ];
+        
+        if($this->user->updateColumn($data, $input['user_id'])) {
+            $this->response(['status' => 'success', 'message' => 'Password changed successfully'], REST_Controller::HTTP_OK);
+        } else {
+            $this->response(['status' => 'failed', 'message' => 'Something went wrong'], REST_Controller::HTTP_OK);
         }
         
     }
