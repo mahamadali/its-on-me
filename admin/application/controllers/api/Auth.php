@@ -14,6 +14,7 @@ class Auth extends REST_Controller {
        $this->load->database();
        $this->load->helper('general');
        $this->load->model('User', 'user');
+       $this->load->library('email');
     }
        
     /**
@@ -95,6 +96,21 @@ class Auth extends REST_Controller {
         ];
         
         $this->user->updateColumn($data, $id);
+
+        $this->email->from('info@itsonme.co.za', 'ITSONME');
+        $this->email->to($emailCount->email);
+         
+        $this->email->subject('Verification Code - ITSONME');
+        $message = "Hello ".$emailCount->first_name.",";
+        $message .= "<br>";
+        $message .= "<p>Your forgot password request has been received. You can use below reset code in APP</p>";
+        $message .= "<p>Verification code: ". $code ."</p>";
+        $message .= "<br>";
+        $message .= "<p>Thanks,</p>";
+        $message .= "<p>ITSONME Team<br></p>";
+        $this->email->message($message);
+        $this->email->send();
+
         if($id) {
             $this->response(['status' => 'success', 'message' => 'verification code sent to email', 'user_id' => $id, 'code' => $code], REST_Controller::HTTP_OK);
         } else {
