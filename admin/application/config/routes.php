@@ -235,7 +235,21 @@ $route['site_visitors'] = 'ReportController/site_visitors';
 
 $route['corporate_members'] = 'Members/corporate_members';
 
+/*Merchant ROUTES*/
 
+$route['merchant/login'] = 'MerchantController/merchant_login';
+$route['merchant/check_login'] = 'MerchantController/check_login';
+$route['merchant/dashboard'] = 'MerchantDashboardController';
+$route['merchant/profile'] = 'MerchantDashboardController/profile';
+$route['merchants/profile_update'] = 'MerchantDashboardController/profileupdate';
+$route['merchant/list-bank/(:any)'] = 'MerchantDashboardController/list_banks/$1';
+$route['merchant/add-bank/(:any)'] = 'MerchantDashboardController/add_bank/$1';
+$route['merchant/store-bank'] = 'MerchantDashboardController/store_bank/';
+$route['merchant/delete-merchant-bank/(:any)/(:any)'] = 'MerchantDashboardController/delete_bank/$1/$2';
+$route['merchant/edit-merchant-bank/(:any)/(:any)'] = 'MerchantDashboardController/edit_bank/$1/$2';
+$route['merchant/update-bank'] = 'MerchantDashboardController/update_bank';
+$route['merchant/logout'] = 'MerchantController/logout';
+/*Merchant ROUTES*/
 
 /*API ROUTES*/
 $route['api/login'] = 'api/Auth/login';

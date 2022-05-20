@@ -133,5 +133,14 @@ class Merchant extends CI_Model
           $que = $this->db->update('merchant_banks', $data);
           return $que;
     } 
+
+      function delete_merchant_bank($tablename, $columnname, $columnid) {
+        $this->db->where($columnname, $columnid);
+        if ($this->db->delete($tablename)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
  
 }

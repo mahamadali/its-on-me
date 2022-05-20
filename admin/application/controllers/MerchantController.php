@@ -91,7 +91,7 @@ public function delete($id){
   $getImage = merchantProfile($id);
   @unlink('assets/merchant_profile/'.basename($getImage));
   $merchant_id = $this->merchant->delete_data('merchants','id',$id);
-
+  $MerchantbankDelete = $this->merchant->delete_merchant_bank('merchant_banks','merchant_id',$id);
   if(!empty($merchant_id)) {
     $this->session->set_flashdata('success', 'Merchant deleted successfully!');
 
@@ -307,6 +307,67 @@ public function delete_bank($id,$merchant_id){
 
   redirect('merchants/list-bank/'.$UpdatedMerchantbankData['merchant_id']);
 }
+
+   /*After Merchant Login Functions*/
+
+
+   public function merchant_login()
+   {
+
+      $this->load->view('merchant/merchant_login');
+   }
+
+   public function check_login()
+    {
+
+       $data['error'] = '';
+       $this->form_validation->set_rules('email', 'EMail', 'trim|required');
+       $this->form_validation->set_rules('password', 'Password', 'trim|required');
+       if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('error', 'Please follow validation rules!');
+        redirect('merchant/login', 'refresh');
+    }
+    else
+    {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password'); 
+        $this->db->where('email',$email);
+        $this->db->where('password',md5($password));
+        $query=$this->db->get('merchants');
+        $get_user = $query->result();   
+
+          if(!empty($get_user))
+          {
+              $merchantdata = array(
+               'merchant' => $get_user[0]->id, 
+               'email' => $get_user[0]->email
+           );
+
+            $this->session->set_userdata($merchantdata);
+          }
+            
+
+            $row = $query->num_rows();
+
+            if($row)
+            {
+                redirect('merchant/dashboard');
+            }
+            else
+            {   
+               $data['error'] = "1";
+           }
+           $this->load->view('merchant/merchant_login',$data);
+       }
+   }
+
+   function logout()
+   {
+    $this->session->sess_destroy();
+    redirect('merchant/login');
+} 
+
+   /*After Merchant Login Functions*/
 
 
 }

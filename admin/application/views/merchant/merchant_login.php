@@ -131,13 +131,13 @@
                 <small>sign in with credentials</small>
               </div>
               <?php 
-                                if(isset($error))
-                                {
-                                     echo '<div class="alert alert-danger"><strong>Invalid Credentials!</strong></div>';
-                                }
+                  if(isset($error))
+                  {
+                       echo '<div class="alert alert-danger"><strong>Invalid Credentials!</strong></div>';
+                  }
 
-                              ?>
-              <form role="form" action="<?php echo base_url() ?>check_login" method="post">
+                ?>
+              <form role="form" action="<?php echo base_url('merchant/check_login') ?>" method="post">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
@@ -165,7 +165,7 @@
               <!-- <a href="#" class="text-light"><small>Forgot password?</small></a> -->
             </div>
             <div class="col-6 text-right">
-              <a href="<?php echo base_url('merchant/login') ?>" class="text-light"><small>Merchant Login</small></a>
+              <a href="<?php echo base_url() ?>" class="text-light"><small>Admin Login</small></a>
             </div>
           </div>
         </div>
