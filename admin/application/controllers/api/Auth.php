@@ -109,6 +109,7 @@ class Auth extends REST_Controller {
         $message .= "<p>Thanks,</p>";
         $message .= "<p>ITSONME Team<br></p>";
         $this->email->message($message);
+        $this->email->set_mailtype("html");
         $this->email->send();
 
         if($id) {
