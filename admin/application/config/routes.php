@@ -265,6 +265,20 @@ $route['merchant/products/update_item'] = 'MerchantProductController/update_prod
 
 /*Merchant ROUTES*/
 
+
+/*Advertising Routes*/
+
+$route['advertising'] = 'AdvertisingController/index';
+$route['advertise/add'] = 'AdvertisingController/add';
+$route['advertise/store'] = 'AdvertisingController/store';
+$route['advertise/delete/(:any)'] = 'AdvertisingController/delete/$1';
+$route['advertise/edit/(:any)'] = 'AdvertisingController/edit/$1';
+$route['advertise/update'] = 'AdvertisingController/update';
+
+
+
+/*Advertising Routes*/
+
 /*API ROUTES*/
 $route['api/login'] = 'api/Auth/login';
 $route['api/province'] = 'api/Auth/province';
