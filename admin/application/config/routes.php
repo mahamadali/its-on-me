@@ -274,3 +274,4 @@ $route['api/verify-email-code'] = 'api/Auth/verifyEmailCode';
 $route['api/reset-password'] = 'api/Auth/resetPassword';
 $route['api/categories'] = 'api/Product/categories';
 $route['api/merchants-by-category'] = 'api/Product/merchantsBycategory';
+$route['api/banners'] = 'api/General/banners';
