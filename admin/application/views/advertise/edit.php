@@ -35,7 +35,7 @@
 
               <div class="col-4">
                  <input type="submit" class="btn btn-primary my-4" value="Update">
-                  <a href="<?php echo base_url('merchant/dashboard') ?>" class="btn btn-info pull-right">Cancel</a>
+                  <a href="<?php echo base_url('advertising') ?>" class="btn btn-info pull-right">Cancel</a>
                 </div>
               </form>
             </div>

@@ -67,16 +67,17 @@
                     </td>
 
                     <td class="status">
-                      <?php if($advertise->status == 0): ?>
-                        <a href="<?php echo base_url().'advertise/status-change/'.$advertise->id.'/1' ?>" class="btn btn-sm btn-success">Active</a>
-                      <?php else: ?>
-                        <a href="<?php echo base_url().'advertise/status-change/'.$advertise->id.'/0' ?>" class="btn btn-sm btn-danger">Inactive</a>
-                      <?php endif; ?>  
+                      <?php echo ($advertise->status == 1) ? 'Active' : 'Inactive'; ?>
                     </td>
 
                     <td class="status">
                       <a href="<?php echo base_url('advertise/delete') ?>/<?php echo $advertise->id ?>" class="btn btn-sm btn-danger">Delete</a>
                       <a href="<?php echo base_url('advertise/edit') ?>/<?php echo $advertise->id ?>" class="btn btn-sm btn-primary">Edit</a>
+                       <?php if($advertise->status == 0): ?>
+                        <a href="<?php echo base_url().'advertise/status-change/'.$advertise->id.'/1' ?>" class="btn btn-sm btn-success">Active</a>
+                      <?php else: ?>
+                        <a href="<?php echo base_url().'advertise/status-change/'.$advertise->id.'/0' ?>" class="btn btn-sm btn-danger">Inactive</a>
+                      <?php endif; ?>  
                     </td>
                   </tr>
                 <?php } ?>
