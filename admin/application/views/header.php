@@ -145,12 +145,12 @@ a {
                 <span class="nav-link-text">Product Categories</span>
               </a>
             </li> -->
-            <li class="nav-item">
-              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('products') ?>">
+            <!-- <li class="nav-item">
+              <a class="nav-link <?php //echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php //echo base_url('products') ?>">
                 <i class="ni ni-basket"></i>
                 <span class="nav-link-text">Products</span>
               </a>
-            </li>
+            </li> -->
             <!-- <li class="nav-item">
               <a class="nav-link <?php //echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'settings') ? 'active' : '' ?>" href="<?php // echo base_url('setting') ?>">
                 <i class="ni ni-settings"></i>
