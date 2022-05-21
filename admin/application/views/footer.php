@@ -227,7 +227,7 @@
     });
   });
 
-  if($('#chart-line').length) {
+ /* if($('#chart-line').length) {
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -238,8 +238,7 @@
     new Chart(ctx1, {
       type: "line",
       data: {
-        labels: <?php echo json_encode($last_days_members) ?>,
-        // labels: ["Apr", "May"],
+        labels: <?php //echo json_encode($last_days_members) ?>,
         datasets: [{
           label: "Pre-Register-Count",
           tension: 0.4,
@@ -249,7 +248,7 @@
           backgroundColor: gradientStroke1,
           borderWidth: 3,
           fill: true,
-          data: <?php echo json_encode($member_pre_registered_count) ?>,
+          data: <?php //echo json_encode($member_pre_registered_count) ?>,
           // data: [50,40],
           maxBarThickness: 6
 
@@ -312,8 +311,8 @@
       },
     });      
   }
-
-   if($('#member-collection-chart-line').length) {
+*/
+  /* if($('#member-collection-chart-line').length) {
       var ctx2 = document.getElementById("member-collection-chart-line").getContext("2d");
 
     var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
@@ -324,8 +323,7 @@
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: <?php echo json_encode($last_days_members) ?>,
-        // labels: ["Apr", "May"],
+        labels: <?php //echo json_encode($last_days_members) ?>,
         datasets: [{
           label: "Collection Count",
           tension: 0.4,
@@ -335,7 +333,7 @@
           backgroundColor: gradientStroke1,
           borderWidth: 3,
           fill: true,
-          data: <?php echo json_encode($member_pre_registered_count) ?>,
+          data: <?php //echo json_encode($member_pre_registered_count) ?>,
           // data: [50,40],
           maxBarThickness: 6
 
@@ -397,7 +395,7 @@
         },
       },
     });
-   }
+   }*/
     
 
  
@@ -406,7 +404,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script type="text/javascript">
         $('#multiple').select2({
-          placeholder: "Select a programming language",
+          allowClear: true
+      });
+
+       $('.multiple-selects').select2({
           allowClear: true
       });
       </script>

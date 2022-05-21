@@ -128,7 +128,7 @@ a {
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('merchants') ?>">
+              <a class="nav-link <?php echo ($this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('merchant/products') ?>">
                 <i class="ni ni-user-run"></i>
                 <span class="nav-link-text">Products</span>
               </a>
@@ -189,7 +189,7 @@ a {
                 </div>
                
                 <div class="dropdown-divider"></div>
-                <a href="<?php echo base_url('profile/manageprofile') ?>" class="dropdown-item">
+                <a href="<?php echo base_url('merchant/profile') ?>" class="dropdown-item">
                   <i class="ni ni-single-02 text-yellow"></i>
                   <span>Profile</span>
                 </a>

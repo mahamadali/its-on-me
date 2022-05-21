@@ -86,6 +86,8 @@ class User extends CI_Model
 
     function dashboard_statistics() {
         $response['total_users'] = count($this->get_all_data());
+        $this->load->model('Merchant', 'merchant');
+        $response['total_merchants'] = count($this->merchant->get_all_data());
         return $response;
     }
 

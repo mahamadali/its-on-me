@@ -22,7 +22,7 @@ class MerchantDashboardController extends CI_Controller {
          {
              redirect('merchant/login');
          }
-        //$this->data['dashboard'] = $this->user->dashboard_statistics();
+        $this->data['total_items'] = $this->Merchant_Dashboard_model->get_all_product_count();
         $this->data['page'] = "dashboard/merchant_index";
 		$this->load->view('structure',$this->data);	 
 
@@ -30,6 +30,7 @@ class MerchantDashboardController extends CI_Controller {
 
 	public function profile()
 	{
+    
 		$loggedIn = !empty($_SESSION['merchant']) ? $_SESSION['merchant'] : '';
 		$this->data['merchant_data'] = $this->merchant->get_merchant_data($loggedIn);
   		$this->data['categories'] = categories();

@@ -31,7 +31,7 @@
                   <h3 class="mb-0">Item Listing </h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="<?php echo base_url('products/add_item') ?>" class="btn btn-sm btn-primary">Add Item</a>
+                  <a href="<?php echo base_url('merchant/products/add_item') ?>" class="btn btn-sm btn-primary">Add Item</a>
                 </div>
               </div>
             </div>
@@ -41,35 +41,26 @@
               <table class="table align-items-center table-flush" id="product_list">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" class="sort" data-sort="photo">Photo</th>
-                    <th scope="col" class="sort" data-sort="cat">Category</th>
-                    <th scope="col" class="sort" data-sort="name">Name</th>
-                    <th scope="col" class="sort" data-sort="price">Price</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" class="sort" data-sort="name">Merchant Name</th>
+                    <th scope="col" class="sort" data-sort="photo">Product Name</th>
+                    <th scope="col" class="sort" data-sort="cat">Prodcut Price</th>
+                    <th scope="col" class="sort" data-sort="cat">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody class="list">
                   <?php foreach ($AllProducts as $key => $item) { 
-                     $product_pictures = explode(',',$item->product_picture);
-                     $getProductData = $this->Products_model->get_product_cat_data($item->cat_id);
+                     //$getProductData = $this->Merchant_Product_model->get_product_cat_data($item->cat_id);
                     ?>
                   <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <a href="<?php echo $item->product_picture ?>" target="_blank"><img alt="Image placeholder" src="<?php echo $product_pictures[0]; ?>" height="50" width="50"></a>
-                        </div>
-                      </div>
-                    </th>
-                    <td class="cat">
-                      <?php echo $this->Products_model->getCatName($item->cat_id); ?>
+                
+                     <td class="price">
+                      <?php echo $this->merchant_product->getMerchantName($item->merchant_id); ?>
                     </td>
 
                      <td class="price">
                       <?php echo $item->product_name ?>
                     </td>
-
                      <td class="price">
                       $<?php echo $item->product_price ?>
                     </td>
@@ -85,8 +76,8 @@
                       </span>
                     </td>
                     <td >
-                      <a href="<?php echo base_url('products/delete_item') ?>/<?php echo $item->id ?>" class="btn btn-sm btn-danger">Delete</a>
-                      <a href="<?php echo base_url('products/edit_item') ?>/<?php echo $item->id ?>" class="btn btn-sm btn-primary">Edit</a>
+                      <a href="<?php echo base_url('merchant/products/delete_item') ?>/<?php echo $item->id ?>" class="btn btn-sm btn-danger">Delete</a>
+                      <a href="<?php echo base_url('merchant/products/edit_item') ?>/<?php echo $item->id ?>" class="btn btn-sm btn-primary">Edit</a>
                     </td>
                   </tr>
                 <?php } ?>

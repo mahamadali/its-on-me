@@ -11,7 +11,7 @@ class Merchant_Dashboard_model extends CI_Model
     public function get_all_product_count()  
       {  
            $this->db->select("*");  
-           $this->db->from('online_store_products');  
+           $this->db->from('products');  
            $query = $this->db->get(); 
            return $query->num_rows();    
       }

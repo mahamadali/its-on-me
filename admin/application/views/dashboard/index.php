@@ -42,7 +42,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Total Merchants</h5>
-                      <span class="h2 font-weight-bold mb-0" id="total_active_members">500</span>
+                      <span class="h2 font-weight-bold mb-0" id="total_active_members"><?php echo $dashboard['total_merchants'] ?></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">

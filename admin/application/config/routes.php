@@ -249,6 +249,20 @@ $route['merchant/delete-merchant-bank/(:any)/(:any)'] = 'MerchantDashboardContro
 $route['merchant/edit-merchant-bank/(:any)/(:any)'] = 'MerchantDashboardController/edit_bank/$1/$2';
 $route['merchant/update-bank'] = 'MerchantDashboardController/update_bank';
 $route['merchant/logout'] = 'MerchantController/logout';
+
+
+/*Merchant Products Routes*/
+
+$route['merchant/products'] = 'MerchantProductController/index';
+$route['merchant/products/add_item'] = 'MerchantProductController/add_product_items';
+$route['merchant/products/store_item'] = 'MerchantProductController/store_product_items';
+$route['merchant/products/delete_item/(:any)'] = 'MerchantProductController/delete_product_item/$1';
+$route['merchant/products/edit_item/(:any)'] = 'MerchantProductController/edit_product_item/$1';
+$route['merchant/products/update_item'] = 'MerchantProductController/update_product_item';
+
+
+/*Merchant Products Routes*/
+
 /*Merchant ROUTES*/
 
 /*API ROUTES*/
