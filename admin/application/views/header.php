@@ -121,47 +121,6 @@ a {
               </a>
             </li>
 
-
-            <!-- <li class="<?php echo ($this->uri->segment(1) == 'preregister_members') || ($this->uri->segment(1) == 'member_collections') ||  ($this->uri->segment(1) == 'pending_invitations') || ($this->uri->segment(1) == 'registered_invitations') ? 'active' : '' ?>">
-
-              <a href="#reports" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="ni ni-collection" style="font-size: .9375rem;line-height: 1.5rem;min-width:1.2rem;"></i> Reports</a>
-              <ul class="collapse list-unstyled <?php echo ($this->uri->segment(1) == 'preregister_members') || ($this->uri->segment(1) == 'member_collections') ||  ($this->uri->segment(1) == 'pending_invitations') || ($this->uri->segment(1) == 'registered_invitations') ? 'show' : '' ?>" id="reports">
-                <li class="nav-item" style="padding-left:30px;">
-                  <a class="nav-link <?php echo ($this->uri->segment(1) == 'preregister_members') ? 'active' : '' ?>" href="<?php echo base_url('preregister_members') ?>">
-                    <i class="ni ni-map-big"></i>
-                    <span class="nav-link-text">Pre-registers</span>
-                  </a>
-                </li>
-
-                <li class="nav-item" style="padding-left:30px;">
-                  <a class="nav-link <?php echo ($this->uri->segment(1) == 'members_report') ? 'active' : '' ?>" href="<?php echo base_url('members_report') ?>">
-                    <i class="ni ni-map-big"></i>
-                    <span class="nav-link-text">Members</span>
-                  </a>
-                </li>
-
-                 <li class="nav-item" style="padding-left:30px;">
-                  <a class="nav-link <?php echo ($this->uri->segment(1) == 'member_collections') ? 'active' : '' ?>" href="<?php echo base_url('member_collections') ?>">
-                    <i class="ni ni-map-big"></i>
-                    <span class="nav-link-text">Member-Collections</span>
-                  </a>
-                </li>
-                <li class="nav-item" style="padding-left:30px;">
-                  <a class="nav-link <?php echo ($this->uri->segment(1) == 'pending_invitations') ? 'active' : '' ?>" href="<?php echo base_url('pending_invitations') ?>">
-                    <i class="ni ni-notification-70"></i>
-                    <span class="nav-link-text">Pending Invitations</span>
-                  </a>
-                </li>
-                <li class="nav-item" style="padding-left:30px;">
-                  <a class="nav-link <?php echo ($this->uri->segment(1) == 'registered_invitations') ? 'active' : '' ?>" href="<?php echo base_url('registered_invitations') ?>">
-                    <i class="ni ni-check-bold"></i>
-
-                    <span class="nav-link-text">Registered Invitations</span>
-                  </a>
-                </li>
-              </ul>
-            </li> -->
-
             <li class="nav-item">
               <a class="nav-link <?php echo ($this->uri->segment(1) == 'users') ? 'active' : '' ?>" href="<?php echo base_url('users') ?>">
                 <i class="ni ni-user-run"></i>
@@ -180,26 +139,55 @@ a {
                 <span class="nav-link-text">Advertising</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'product-categories') ? 'active' : '' ?>" href="<?php echo base_url('product-categories') ?>">
+            <!-- <li class="nav-item">
+              <a class="nav-link <?php //echo ($this->uri->segment(1) == 'product-categories') ? 'active' : '' ?>" href="<?php //echo base_url('product-categories') ?>">
                 <i class="ni ni-app"></i>
                 <span class="nav-link-text">Product Categories</span>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('products') ?>">
                 <i class="ni ni-basket"></i>
                 <span class="nav-link-text">Products</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'settings') ? 'active' : '' ?>" href="<?php echo base_url('setting') ?>">
+            <!-- <li class="nav-item">
+              <a class="nav-link <?php //echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'settings') ? 'active' : '' ?>" href="<?php// echo base_url('setting') ?>">
                 <i class="ni ni-settings"></i>
                 <span class="nav-link-text">Settings</span>
               </a>
-            </li>
+            </li> -->
+
+            <!-- Settings -->
+
+             <li class="<?php echo ($this->uri->segment(1) == 'product-categories') || ($this->uri->segment(1) == 'admins') ? 'active' : '' ?>">
+
+              <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="ni ni-settings" style="font-size: .9375rem;line-height: 1.5rem;min-width:1.2rem;"></i> Settings</a>
+              <ul class="collapse list-unstyled <?php echo ($this->uri->segment(1) == 'product-categories') || ($this->uri->segment(1) == 'admins')  ? 'show' : '' ?>" id="settings">
+                <li class="nav-item" style="padding-left:30px;">
+                 <a class="nav-link <?php echo ($this->uri->segment(1) == 'product-categories') ? 'active' : '' ?>" href="<?php echo base_url('product-categories') ?>">
+                    <i class="ni ni-app"></i>
+                    <span class="nav-link-text">Categories</span>
+                  </a>
+                </li>
+                <?php $this->load->helper('general'); $adminRole = getAdminData($_SESSION['admin']);
+                      if($adminRole == 'superadmin'): ?>
+                <li class="nav-item" style="padding-left:30px;">
+                  <a class="nav-link <?php echo ($this->uri->segment(1) == 'admins') ? 'active' : '' ?>" href="<?php echo base_url('admin-list') ?>">
+                    <i class="ni ni-map-big"></i>
+                    <span class="nav-link-text">Admins</span>
+                  </a>
+                </li>
+              <?php endif; ?>
+              </ul>
+            </li> 
+
+
+            <!-- Settings -->
+
+
             <li class="nav-item">
-              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'support') ? 'active' : '' ?>" href="<?php echo base_url('setting') ?>">
+              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'support') ? 'active' : '' ?>" href="<?php echo base_url('inquiries') ?>">
                 <i class="ni ni-email-83"></i>
                 <span class="nav-link-text">Support</span>
               </a>

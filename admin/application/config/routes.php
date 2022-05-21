@@ -276,9 +276,25 @@ $route['advertise/edit/(:any)'] = 'AdvertisingController/edit/$1';
 $route['advertise/update'] = 'AdvertisingController/update';
 $route['advertise/status-change/(:any)/(:any)'] = 'AdvertisingController/statusChange/$1/$2';
 
-
-
 /*Advertising Routes*/
+
+/*Admin Create Routes*/
+
+$route['admin-list'] = 'AdminController/index';
+$route['admin-list/add'] = 'AdminController/add';
+$route['admin-list/store'] = 'AdminController/store';
+$route['admin-list/delete/(:any)'] = 'AdminController/delete/$1';
+$route['admin-list/edit/(:any)'] = 'AdminController/edit/$1';
+$route['admin-list/update'] = 'AdminController/update';
+
+
+/*Admin Create Routes*/
+
+/*Support Ticket Routes*/
+
+$route['inquiries'] = 'InquiryController/index';
+
+/*Support Ticket Routes*/
 
 /*API ROUTES*/
 $route['api/login'] = 'api/Auth/login';

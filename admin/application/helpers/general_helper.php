@@ -25,6 +25,13 @@ function merchantProfile($id) {
 	return $query->row()->profile_picture;
 }
 
+function getAdminData($id)  
+      {  
+      	  $CI =& get_instance();
+          $CI->db->where('id', $id);
+          $query = $CI ->db->get('admin');
+          return $query->row()->role; 
+      } 
 
 function userStatus($status) {
 	switch ($status) {
