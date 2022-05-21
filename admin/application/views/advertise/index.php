@@ -67,7 +67,11 @@
                     </td>
 
                     <td class="status">
-                      <?php echo ($advertise->status == 1) ? 'Active' : 'Inactive'; ?>
+                      <?php if($advertise->status == 0): ?>
+                        <a href="<?php echo base_url().'advertise/status-change/'.$advertise->id.'/1' ?>" class="btn btn-sm btn-success">Active</a>
+                      <?php else: ?>
+                        <a href="<?php echo base_url().'advertise/status-change/'.$advertise->id.'/0' ?>" class="btn btn-sm btn-danger">Inactive</a>
+                      <?php endif; ?>  
                     </td>
 
                     <td class="status">

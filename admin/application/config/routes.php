@@ -274,6 +274,7 @@ $route['advertise/store'] = 'AdvertisingController/store';
 $route['advertise/delete/(:any)'] = 'AdvertisingController/delete/$1';
 $route['advertise/edit/(:any)'] = 'AdvertisingController/edit/$1';
 $route['advertise/update'] = 'AdvertisingController/update';
+$route['advertise/status-change/(:any)/(:any)'] = 'AdvertisingController/statusChange/$1/$2';
 
 
 

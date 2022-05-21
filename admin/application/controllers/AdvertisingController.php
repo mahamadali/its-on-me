@@ -145,5 +145,11 @@ public function delete($id){
   redirect('advertising');
 }
 
-  
+  public function statusChange($id, $status) {
+
+  $data = array('status' => $status);
+  $this->advertise->updateColumn($data, $id);
+  $this->session->set_flashdata('success', 'Status updated successfully!');
+  redirect('advertising');
+} 
 }
