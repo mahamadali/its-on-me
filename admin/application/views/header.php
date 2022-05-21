@@ -152,7 +152,7 @@ a {
               </a>
             </li>
             <!-- <li class="nav-item">
-              <a class="nav-link <?php //echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'settings') ? 'active' : '' ?>" href="<?php// echo base_url('setting') ?>">
+              <a class="nav-link <?php //echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'settings') ? 'active' : '' ?>" href="<?php // echo base_url('setting') ?>">
                 <i class="ni ni-settings"></i>
                 <span class="nav-link-text">Settings</span>
               </a>
