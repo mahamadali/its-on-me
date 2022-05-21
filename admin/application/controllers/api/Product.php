@@ -14,6 +14,7 @@ class Product extends REST_Controller {
        $this->load->database();
        $this->load->helper('general');
        $this->load->model('User', 'user');
+       $this->load->model('Merchant', 'merchant');
        $this->load->library('email');
     }
 
@@ -34,5 +35,23 @@ class Product extends REST_Controller {
         }
         $response = $this->db->get('categories')->result_array();
         $this->response(['status' => 'success', 'data' => $response], REST_Controller::HTTP_OK);
+    }
+
+    public function merchantsBycategory_post()
+    {
+        $input = $this->input->post();
+        if(!isset($input['user_id'])) {
+         return $this->response(['status' => 'failed', 'message' => 'Missing User ID'], REST_Controller::HTTP_OK);
+        }
+        if(!isset($input['category_id'])) {
+         return $this->response(['status' => 'failed', 'message' => 'Missing Category ID'], REST_Controller::HTTP_OK);
+        }
+        $user = $this->user->findByColumn('id', $input['user_id']);
+        if(empty($user)) {
+            return $this->response(['status' => 'failed', 'message' => 'You do not have permission'], REST_Controller::HTTP_OK);
+        }
+
+        $merchants = $this->merchant->getDataByCategoryId($input['category_id']);
+        return $this->response(['status' => 'success', 'data' => $merchants], REST_Controller::HTTP_OK);
     }
  }

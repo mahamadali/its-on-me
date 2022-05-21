@@ -142,5 +142,12 @@ class Merchant extends CI_Model
             return false;
         }
     }
+
+    public function getDataByCategoryId($category_id) {
+        $this->db->where("find_in_set($category_id, categories)");
+        $query = $this->db->get($this->table);
+        $result = $query->result_array();
+        return $result;
+    }
  
 }
