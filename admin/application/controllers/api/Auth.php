@@ -36,8 +36,13 @@ class Auth extends REST_Controller {
     public function login_post()
     {
         $input = $this->input->post();
+        if(!isset($input['device_token'])) {
+            return $this->response(['status' => 'failed', 'message' => 'Device Token Missing!'], REST_Controller::HTTP_OK);
+        }
         $response = $this->user->checkLogin($input);
+
         if($response) {
+            $this->user->saveDeviceToken($response['id'], $input['device_token']);
             $this->response(['status' => 'success', 'data' => $response], REST_Controller::HTTP_OK);    
         } else {
             $this->response(['status' => 'failed', 'message' => 'Incorrect login credentials!'], REST_Controller::HTTP_OK);

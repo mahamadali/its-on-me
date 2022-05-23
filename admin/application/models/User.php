@@ -102,4 +102,14 @@ class User extends CI_Model
             return false;
         }
     }
+
+    public function saveDeviceToken($id, $token) {
+        $this->db->where('user_id', $id);
+        $this->db->where('device_token', $token);
+        $query = $this->db->get('user_device_tokens');
+        if($query->num_rows() == 0) {
+            $data = ['user_id' => $id, 'device_token' => $token];
+            $this->insert_data_getid($data, 'user_device_tokens');
+        }
+    }
 }
