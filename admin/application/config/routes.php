@@ -293,6 +293,17 @@ $route['inquiries'] = 'InquiryController/index';
 
 /*Support Ticket Routes*/
 
+/*Vouchers Routes*/
+
+$route['vouchers'] = 'VoucherController/index';
+$route['voucher/add'] = 'VoucherController/add';
+$route['voucher/store'] = 'VoucherController/store';
+$route['voucher/delete/(:any)'] = 'VoucherController/delete/$1';
+$route['voucher/edit/(:any)'] = 'VoucherController/edit/$1';
+$route['voucher/update'] = 'VoucherController/update';
+
+/*Vouchers Routes*/
+
 /*API ROUTES*/
 $route['api/login'] = 'api/Auth/login';
 $route['api/province'] = 'api/Auth/province';

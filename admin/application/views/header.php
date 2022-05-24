@@ -193,9 +193,16 @@ a {
 
 
             <li class="nav-item">
-              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'support') ? 'active' : '' ?>" href="<?php echo base_url('inquiries') ?>">
+              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'inquiries') ? 'active' : '' ?>" href="<?php echo base_url('inquiries') ?>">
                 <i class="ni ni-email-83"></i>
                 <span class="nav-link-text">Support</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link <?php echo (empty($this->uri->segment(2)) && $this->uri->segment(1) == 'vouchers') ? 'active' : '' ?>" href="<?php echo base_url('vouchers') ?>">
+                <i class="ni ni-tie-bow"></i>
+                <span class="nav-link-text">Vouchers</span>
               </a>
             </li>
 
