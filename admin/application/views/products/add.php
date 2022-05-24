@@ -43,6 +43,12 @@
                         <input type="number" id="product_price" class="form-control" placeholder="Enter Item Price" name="product_price" required="" step=".01">
                       </div>
                     </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="password">Product Image</label>
+                        <input type="file" id="files" class="form-control"  name="files[]" multiple >
+                      </div>
+                    </div>
                   </div>
                   
                   <div class="row">
@@ -50,6 +56,16 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-description">Description</label>
                         <textarea class="form-control" name="product_description" id="product_description" cols="5" rows="5"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-description">Apply for feature product?</label>
+                        <label><input type="radio" name="apply_featured" value="YES" required> YES</label>
+                        <label><input type="radio" name="apply_featured" value="NO"> No</label>
                       </div>
                     </div>
                   </div>

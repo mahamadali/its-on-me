@@ -10,6 +10,7 @@ class Products extends CI_Controller {
         $this->data['header'] = $this->load->view('header',$this->data,true);
         $this->data['footer'] = $this->load->view('footer',$this->data,true);
         $this->load->model('Products_model');
+        $this->load->model('Merchant', 'merchant');
         $this->load->helper('form');
     }
 
@@ -242,6 +243,14 @@ public function delete_product_item($id)
     $this->session->set_flashdata('error', 'Something Wrong!');
 }
 redirect('products');
+}
+
+public function approve_feature_item($id)
+{
+    $data = ['is_featured' => 1];
+    $this->Products_model->update_product_detail($id, $data);
+    $this->session->set_flashdata('success', 'Product approved as featured successfully!');
+    redirect('products');
 }
 
 public function edit_product_item($id)

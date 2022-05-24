@@ -150,5 +150,11 @@ class Merchant extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+
+    public function getOne($id) {
+        $this->db->where('id', $id);
+        $result = $this->db->get($this->table)->row();
+        return $result;
+    }
  
 }

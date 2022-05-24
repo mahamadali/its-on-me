@@ -115,36 +115,36 @@ a {
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'dashboard') ? 'active' : '' ?>" href="<?php echo base_url('merchant/dashboard') ?>">
+              <a class="nav-link <?php echo ($this->uri->segment(2) == 'dashboard') ? 'active' : '' ?>" href="<?php echo base_url('merchant/dashboard') ?>">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Dashboard</span>
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'profile') ? 'active' : '' ?>" href="<?php echo base_url('merchant/profile') ?>">
+              <a class="nav-link <?php echo ($this->uri->segment(2) == 'profile') ? 'active' : '' ?>" href="<?php echo base_url('merchant/profile') ?>">
                 <i class="ni ni-user-run"></i>
                 <span class="nav-link-text">Profile</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('merchant/products') ?>">
+              <a class="nav-link <?php echo ($this->uri->segment(2) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('merchant/products') ?>">
                 <i class="ni ni-user-run"></i>
                 <span class="nav-link-text">Products</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'advertising') ? 'active' : '' ?>" href="<?php echo base_url('advertising') ?>">
+              <a class="nav-link <?php echo ($this->uri->segment(1) == 'advertising') ? 'active' : '' ?>" href="#">
                 <i class="ni ni-notification-70"></i>
-                <span class="nav-link-text">Vouchers</span>
+                <span class="nav-link-text">Redeem</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'advertising') ? 'active' : '' ?>" href="<?php echo base_url('advertising') ?>">
+            <!-- <li class="nav-item">
+              <a class="nav-link <?php //echo ($this->uri->segment(1) == 'advertising') ? 'active' : '' ?>" href="<?php //echo base_url('advertising') ?>">
                 <i class="ni ni-notification-70"></i>
                 <span class="nav-link-text">Support</span>
               </a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

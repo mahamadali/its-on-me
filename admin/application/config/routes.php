@@ -85,11 +85,8 @@ $route['merchants/update-bank'] = 'MerchantController/update_bank';
 
 //Manage Products Routes
 $route['products'] = 'Products';
-$route['products/add_item'] = 'Products/add_product_items';
-$route['products/store_item'] = 'Products/store_product_items';
 $route['products/delete_item/(:any)'] = 'Products/delete_product_item/$1';
-$route['products/edit_item/(:any)'] = 'Products/edit_product_item/$1';
-$route['products/update_item'] = 'Products/update_product_item';
+$route['products/approve_feature/(:any)'] = 'Products/approve_feature_item/$1';
 
 
 //Manage Product Categories

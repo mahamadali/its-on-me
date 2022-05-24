@@ -401,15 +401,17 @@
  
 
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script type="text/javascript">
-        $('#multiple').select2({
-          allowClear: true
-      });
+        $(document).ready(function() {
+          $('#multiple').select2({
+            allowClear: true
+        });
 
-       $('.multiple-selects').select2({
-          allowClear: true
-      });
+         $('.multiple-selects').select2({
+          multiple: true,
+         });
+       });
       </script>
 </body>
 

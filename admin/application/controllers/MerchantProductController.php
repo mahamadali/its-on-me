@@ -10,6 +10,7 @@ class MerchantProductController extends CI_Controller {
         $this->data['header'] = $this->load->view('merchant_header',$this->data,true);
         $this->data['footer'] = $this->load->view('footer',$this->data,true);
         $this->load->model('Merchant_Product_model', 'merchant_product');
+        $this->load->model('Merchant', 'merchant');
         $this->load->helper('form');
         $this->load->helper('general');
     }
@@ -41,8 +42,41 @@ public function store_product_items()
   $MerchantProductdata['merchant_id'] = $_SESSION['merchant'];
   $MerchantProductdata['product_name'] = $this->input->post('product_name');
   $MerchantProductdata['product_price'] = $this->input->post('product_price');
+  $MerchantProductdata['apply_featured'] = $this->input->post('apply_featured');
   $MerchantProductdata['product_description'] = $this->input->post('product_description');
   $MerchantProductdata['categories'] = implode(',',$this->input->post('categories'));
+  
+  if(!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0){ 
+    $filesCount = count($_FILES['files']['name']); 
+    for($i = 0; $i < $filesCount; $i++){ 
+        $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+        $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+        $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+        $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+         $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+
+        /* File upload configuration */
+        $uploadPath = 'assets/product_images/'; 
+        $config['upload_path'] = $uploadPath; 
+        // $config['allowed_types'] = 'jpg|jpeg|png|gif|webp|JPG|JPEG|PNG|GIF'; 
+        $config['allowed_types'] = '*'; 
+        // $config['max_size']    = '1000000';
+        //  $config['max_width'] = '1024'; 
+        //  $config['max_height'] = '768'; 
+
+        /* Load and initialize upload library */
+        $this->load->library('upload', $config); 
+        $this->upload->initialize($config); 
+        /* Upload file to server */ 
+        if($this->upload->do_upload('file')){ 
+            /* Uploaded file data */ 
+            $fileData = $this->upload->data(); 
+            $uploadData[] = "assets/product_images/".$fileData['file_name']; 
+        } 
+    }
+
+    $MerchantProductdata['product_image'] = implode(",", $uploadData);
+    }
 
   $product_id = $this->merchant_product->insert_data_getid($MerchantProductdata,'products');
 
@@ -87,10 +121,43 @@ redirect('merchant/products');
     $productData['updated_at'] = date('Y-m-d H:i:s');
     $productData['product_name'] = $this->input->post('product_name');
     $productData['product_price'] = $this->input->post('product_price');
+    $productData['apply_featured'] = $this->input->post('apply_featured');
     $productData['product_description'] = $this->input->post('product_description');
     $productData['categories'] = implode(',',$this->input->post('categories'));
    
     unset($productData['product_id']);
+
+    if(!empty($_FILES['files']['name']) && count(array_filter($_FILES['files']['name'])) > 0){ 
+    $filesCount = count($_FILES['files']['name']); 
+    for($i = 0; $i < $filesCount; $i++){ 
+        $_FILES['file']['name']     = $_FILES['files']['name'][$i]; 
+        $_FILES['file']['type']     = $_FILES['files']['type'][$i]; 
+        $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i]; 
+        $_FILES['file']['error']     = $_FILES['files']['error'][$i]; 
+         $_FILES['file']['size']     = $_FILES['files']['size'][$i]; 
+
+        /* File upload configuration */
+        $uploadPath = 'assets/product_images/'; 
+        $config['upload_path'] = $uploadPath; 
+        // $config['allowed_types'] = 'jpg|jpeg|png|gif|webp|JPG|JPEG|PNG|GIF'; 
+        $config['allowed_types'] = '*'; 
+        // $config['max_size']    = '1000000';
+        //  $config['max_width'] = '1024'; 
+        //  $config['max_height'] = '768'; 
+
+        /* Load and initialize upload library */
+        $this->load->library('upload', $config); 
+        $this->upload->initialize($config); 
+        /* Upload file to server */ 
+        if($this->upload->do_upload('file')){ 
+            /* Uploaded file data */ 
+            $fileData = $this->upload->data(); 
+            $uploadData[] = "assets/product_images/".$fileData['file_name']; 
+        } 
+    }
+
+    $productData['product_image'] = implode(",", $uploadData);
+    }
 
    
 

@@ -42,6 +42,16 @@
                         <input type="number" id="product_price" class="form-control" placeholder="Enter Item Price" name="product_price" required="" step=".01" value="<?php echo $product_data->product_price ?>">
                       </div>
                     </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="password">Product Image</label>
+                        <input type="file" id="files" class="form-control"  name="files[]" multiple>
+                      </div>
+                      <?php $productImages = explode(",", $product_data->product_image); ?>
+                      <?php foreach($productImages as $productImage): ?>
+                        <img src="<?php echo base_url($productImage) ?>" height="70">
+                      <?php endforeach; ?>
+                    </div>
                   </div>
                   
                   <div class="row">
@@ -52,9 +62,19 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-description">Apply for feature product?</label>
+                        <label><input type="radio" name="apply_featured" value="YES" <?php echo $product_data->product_description == 'YES' ? 'checked' : '' ?> required> YES</label>
+                        <label><input type="radio" name="apply_featured" value="NO" <?php echo $product_data->product_description == 'NO' ? 'checked' : '' ?>> No</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               <div class="col-4">
-                 <input type="submit" class="btn btn-primary my-4" value="Add Item">
+                 <input type="submit" class="btn btn-primary my-4" value="Update Item">
                   <a href="<?php echo base_url('merchant/products') ?>" class="btn btn-info pull-right">Cancel</a>
                 </div>
               </form>

@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/css/toastr.min.css') ?>" type="text/css">
   <link rel="stylesheet" href="<?php echo base_url('assets/css/dataTable-style.css') ?>" type="text/css"> 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <style type="text/css">
     /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -131,6 +131,12 @@ a {
               <a class="nav-link <?php echo ($this->uri->segment(1) == 'merchants') ? 'active' : '' ?>" href="<?php echo base_url('merchants') ?>">
                 <i class="ni ni-user-run"></i>
                 <span class="nav-link-text">Merchants</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?php echo ($this->uri->segment(1) == 'products') ? 'active' : '' ?>" href="<?php echo base_url('products') ?>">
+                <i class="ni ni-user-run"></i>
+                <span class="nav-link-text">Products</span>
               </a>
             </li>
             <li class="nav-item">

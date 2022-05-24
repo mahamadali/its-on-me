@@ -47,7 +47,6 @@ class Products_model extends CI_Model
       {  
            $this->db->select("*");  
            $this->db->from($this->table);
-           $this->db->where('in_offer_for_purchased_fm_package','0');
            $this->db->order_by('id', 'DESC');   
            $query = $this->db->get();  
            return $query->result();    
