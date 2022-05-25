@@ -316,3 +316,6 @@ $route['api/merchants-by-category'] = 'api/Product/merchantsBycategory';
 $route['api/banners'] = 'api/General/banners';
 $route['api/product-offers'] = 'api/Product/productOffers';
 $route['api/product-gift-ideas'] = 'api/Product/productGiftIdeas';
+$route['api/products/search-by-location'] = 'api/Product/searchByProvince';
+$route['api/products/search-by-name'] = 'api/Product/searchByName';
+$route['api/products/search-by-brand'] = 'api/Product/searchByBrand';

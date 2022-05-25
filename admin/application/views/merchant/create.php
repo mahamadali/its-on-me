@@ -52,6 +52,17 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
+                  <label class="form-control-label" for="province">Province</label>
+                  <select id="province" class="form-control" name="province" required="">
+                    <option value="">Choose</option>
+                    <?php foreach($provinces as $province): ?>
+                      <option value="<?php echo $province->id ?>"><?php echo $province->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
                   <label class="form-control-label" for="bio">Physical Address</label>
                    <input type="text" id="physical_address" class="form-control" placeholder="Enter physical address" name="physical_address" required="">
                 </div>

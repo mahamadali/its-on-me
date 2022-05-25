@@ -29,6 +29,7 @@ class MerchantController extends CI_Controller {
 
  public function create()
  {
+  $this->data['provinces'] = provinces();
   $this->data['categories'] = categories();
   $this->data['page'] = "merchant/create";   
   $this->load->view('structure',$this->data); 
@@ -159,6 +160,7 @@ public function statusChange($id, $status) {
 
 public function edit($id)
 {
+  $this->data['provinces'] = provinces();
   $this->data['merchant_data'] = $this->merchant->get_merchant_data($id);
   $this->data['categories'] = categories();
    // print_r($this->data['merchant_data']->profile_picture);exit();
@@ -173,7 +175,9 @@ public function update()
   $MerchantsData = $this->input->post();
       //$updated_id = $this->input->post('merchant_edit_id');
   $merchant_edit_id = $this->input->post('merchant_edit_id');
-  $MerchantsData['password'] = md5($MerchantsData['password']);
+  if(!empty($MerchantsData['password'])) {
+    $MerchantsData['password'] = md5($MerchantsData['password']);  
+  }
   $MerchantsData['categories'] = implode(',',$MerchantsData['categories']);
   $MerchantsData['updated_at'] = date('Y-m-d H:i:s');
 

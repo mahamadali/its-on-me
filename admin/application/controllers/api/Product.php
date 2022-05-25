@@ -65,4 +65,16 @@ class Product extends REST_Controller {
         $products = $this->product->giftIdeas();
         return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
     }
+    public function searchByProvince_post() {
+        $products = $this->product->searchByProvince($this->input->post('province'));
+        return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
+    }
+    public function searchByName_post() {
+        $products = $this->product->searchByName($this->input->post('name'));
+        return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
+    }
+    public function searchByBrand_post() {
+        $products = $this->product->searchByBrand($this->input->post('merchant_id'));
+        return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
+    }
  }

@@ -34,7 +34,7 @@
                 <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label" for="password">Password</label>
-                  <input type="password" id="password" class="form-control" placeholder="Enter Password" name="password" required="" autocomplete="off" value="<?php echo $merchant_data->email ?>">
+                  <input type="password" id="password" class="form-control" placeholder="Enter Password" name="password" autocomplete="off" value="">
                 </div>
               </div>
               <div class="col-lg-6">
@@ -57,6 +57,18 @@
                 <?php if(!empty($merchant_data->profile_picture)): ?>
                     <img src='<?php echo base_url().$merchant_data->profile_picture ?>' style="height:100px;width:100px">
                 <?php endif; ?> 
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="province">Province</label>
+                  <select id="province" class="form-control" name="province" required="">
+                    <option value="">Choose</option>
+                    <?php foreach($provinces as $province): ?>
+                      <option value="<?php echo $province->id ?>" <?php echo ($province->id == $merchant_data->province) ? 'selected' : '' ?>><?php echo $province->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
               </div>
               </div>
 

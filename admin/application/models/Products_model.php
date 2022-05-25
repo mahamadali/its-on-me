@@ -388,6 +388,44 @@ class Products_model extends CI_Model
             $query = $this->db->get($this->table);
             return $query->result_array();
         }
+
+        public function searchByProvince($province)
+        {
+            $this->db->select('`'.$this->table.'`.*, `'.$this->table.'`.status, CONCAT("'.base_url().'", `'.$this->table.'`.product_image) as product_image, CONCAT("'.base_url().'", `merchants`.profile_picture) as merchant_image');
+            $this->db->join('merchants', 'merchants.id=products.merchant_id');
+            $this->db->where('`'.$this->table.'`.status', 1);
+            $this->db->where('merchants.province', $province);
+            $this->db->order_by('id', 'DESC');
+            $query = $this->db->get($this->table);
+            return $query->result_array();
+        }
+
+        public function searchByName($name)
+        {
+            $this->db->select('`'.$this->table.'`.*, `'.$this->table.'`.status, CONCAT("'.base_url().'", `'.$this->table.'`.product_image) as product_image, CONCAT("'.base_url().'", `merchants`.profile_picture) as merchant_image');
+            $this->db->join('merchants', 'merchants.id=products.merchant_id');
+            $this->db->join('categories', 'categories.id=merchants.categories');
+            $this->db->where('`'.$this->table.'`.status', 1);
+            $this->db->group_start();
+            $this->db->like('`'.$this->table.'`.product_name', $name);
+            $this->db->or_like('merchants.username', $name);
+            $this->db->or_like('categories.name', $name);
+            $this->db->group_end();
+            $this->db->order_by('id', 'DESC');
+            $query = $this->db->get($this->table);
+            return $query->result_array();
+        }
+
+        public function searchByBrand($merchantId)
+        {
+            $this->db->select('`'.$this->table.'`.*, `'.$this->table.'`.status, CONCAT("'.base_url().'", `'.$this->table.'`.product_image) as product_image, CONCAT("'.base_url().'", `merchants`.profile_picture) as merchant_image');
+            $this->db->join('merchants', 'merchants.id=products.merchant_id');
+            $this->db->where('`'.$this->table.'`.status', 1);
+            $this->db->where('merchants`.id', $merchantId);
+            $this->db->order_by('id', 'DESC');
+            $query = $this->db->get($this->table);
+            return $query->result_array();
+        }
      
     
 }
