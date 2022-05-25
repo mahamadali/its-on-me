@@ -30,7 +30,7 @@ class MerchantDashboardController extends CI_Controller {
 
 	public function profile()
 	{
-    
+    $this->data['provinces'] = provinces();
 		$loggedIn = !empty($_SESSION['merchant']) ? $_SESSION['merchant'] : '';
 		$this->data['merchant_data'] = $this->merchant->get_merchant_data($loggedIn);
   		$this->data['categories'] = categories();
