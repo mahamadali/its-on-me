@@ -31,7 +31,9 @@
                   <h3 class="mb-0">Item Listing </h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="<?php echo base_url('merchant/products/add_item') ?>" class="btn btn-sm btn-primary">Add Item</a>
+                  <?php if(!$this->session->userdata('admin')): ?>
+                    <a href="<?php echo base_url('merchant/products/add_item') ?>" class="btn btn-sm btn-primary">Add Item</a>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
