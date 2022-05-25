@@ -367,6 +367,23 @@ class Products_model extends CI_Model
            return $product_color;
             
         }
+
+        public function fetchOffers()
+        {
+            $this->db->where('status', 1);
+            $this->db->where('is_featured', 1);
+            $query = $this->db->get($this->table);
+            return $query->result_array();
+        }
+
+        public function giftIdeas()
+        {
+            $this->db->where('status', 1);
+            $this->db->order_by('id', 'DESC');
+            $this->db->limit(10);
+            $query = $this->db->get($this->table);
+            return $query->result_array();
+        }
      
     
 }

@@ -15,6 +15,7 @@ class Product extends REST_Controller {
        $this->load->helper('general');
        $this->load->model('User', 'user');
        $this->load->model('Merchant', 'merchant');
+       $this->load->model('Products_model', 'product');
        $this->load->library('email');
     }
 
@@ -53,5 +54,15 @@ class Product extends REST_Controller {
 
         $merchants = $this->merchant->getDataByCategoryId($input['category_id']);
         return $this->response(['status' => 'success', 'data' => $merchants], REST_Controller::HTTP_OK);
+    }
+
+    public function productOffers_post() {
+        $products = $this->product->fetchOffers();
+        return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
+    }
+
+    public function productGiftIdeas_post() {
+        $products = $this->product->giftIdeas();
+        return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
     }
  }
