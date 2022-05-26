@@ -133,11 +133,25 @@ class PushNotification extends CI_Model
     public function sendNotifications($data, $result) {
         foreach ($result as $key => $user) {
             $tokens = $this->userTokens($user);
+            $notificationSent = 0;
             if(!empty($tokens)) {
                 foreach($tokens as $token) {
                     $response = $this->sendNotification($token->device_token, $data['title'], $data['message'], $data['link']);
                     $response = json_decode($response);
+                    if($response->success) {
+                        $notificationSent = 1;
+                    }
                 }
+            }
+            if($notificationSent == 1) {
+                $user_notification_data = [
+                    'user_id' => $user->id,
+                    'title' => $data['title'],
+                    'message' => $data['message'],
+                    'link' => $data['link'],
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
+                $this->insert_data_getid($user_notification_data, 'user_notifications');
             }
         }
         $data['province'] = in_array('All', $data['province']) ? 0 : implode(",", $data['province']);
