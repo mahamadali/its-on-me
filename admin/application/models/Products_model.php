@@ -397,7 +397,7 @@ class Products_model extends CI_Model
             $this->db->join('merchants', 'merchants.id=products.merchant_id');
             $this->db->join('provinces', 'provinces.id=merchants.province');
             $this->db->where('`'.$this->table.'`.status', 1);
-            $this->db->where('merchants.province', $province);
+            $this->db->like('provinces.name', $province);
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get($this->table);
             return $query->result_array();
@@ -420,13 +420,13 @@ class Products_model extends CI_Model
             return $query->result_array();
         }
 
-        public function searchByBrand($merchantId)
+        public function searchByBrand($merchantName)
         {
             $this->db->select('`'.$this->table.'`.*, `'.$this->table.'`.status, CONCAT("'.base_url().'", `'.$this->table.'`.product_image) as product_image, CONCAT("'.base_url().'", `merchants`.profile_picture) as merchant_image, provinces.name');
             $this->db->join('merchants', 'merchants.id=products.merchant_id');
             $this->db->join('provinces', 'provinces.id=merchants.province');
             $this->db->where('`'.$this->table.'`.status', 1);
-            $this->db->where('merchants`.id', $merchantId);
+            $this->db->like('merchants`.username', $merchantName);
             $this->db->order_by('id', 'DESC');
             $query = $this->db->get($this->table);
             return $query->result_array();

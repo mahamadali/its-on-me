@@ -74,7 +74,7 @@ class Product extends REST_Controller {
         return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
     }
     public function searchByBrand_post() {
-        $products = $this->product->searchByBrand($this->input->post('merchant_id'));
+        $products = $this->product->searchByBrand($this->input->post('name'));
         return $this->response(['status' => 'success', 'data' => $products], REST_Controller::HTTP_OK);
     }
  }
