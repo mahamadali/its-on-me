@@ -275,6 +275,15 @@ $route['advertise/status-change/(:any)/(:any)'] = 'AdvertisingController/statusC
 
 /*Advertising Routes*/
 
+/*Advertising Routes*/
+
+$route['push-notifications'] = 'PushNotificationController/index';
+$route['push-notifications/ajax_list'] = 'PushNotificationController/ajax_list';
+$route['push-notifications/create'] = 'PushNotificationController/create';
+$route['push-notifications/store'] = 'PushNotificationController/store';
+
+/*Advertising Routes*/
+
 /*Admin Create Routes*/
 
 $route['admin-list'] = 'AdminController/index';

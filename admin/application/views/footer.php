@@ -79,6 +79,16 @@
       },  
     });
 
+    var notifications_datatable = $('#notifications-list').DataTable({  
+      "processing":true,  
+      "serverSide":true,  
+      "order":[],  
+      "ajax":{  
+           url:"<?php echo base_url(); ?>push-notifications/ajax_list",
+           type:"POST"  
+      },  
+    });
+
     /*const datatablesSimple = document.getElementById('merchant-bank-list');
     if (datatablesSimple) {
      new simpleDatatables.DataTable(datatablesSimple, {

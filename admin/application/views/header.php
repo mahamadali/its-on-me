@@ -139,11 +139,23 @@ a {
                 <span class="nav-link-text">Products</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link <?php echo ($this->uri->segment(1) == 'advertising') ? 'active' : '' ?>" href="<?php echo base_url('advertising') ?>">
-                <i class="ni ni-notification-70"></i>
-                <span class="nav-link-text">Advertising</span>
-              </a>
+            <li class="<?php echo ($this->uri->segment(1) == 'advertising') || ($this->uri->segment(1) == 'push-notifications') ? 'active' : '' ?>">
+
+              <a href="#advertising" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="ni ni-notification-70" style="font-size: .9375rem;line-height: 1.5rem;min-width:1.2rem;"></i> Advertising</a>
+              <ul class="collapse list-unstyled <?php echo ($this->uri->segment(1) == 'advertising') || ($this->uri->segment(1) == 'push-notifications')  ? 'show' : '' ?>" id="advertising">
+                <li class="nav-item" style="padding-left:30px;">
+                 <a class="nav-link <?php echo ($this->uri->segment(1) == 'advertising') ? 'active' : '' ?>" href="<?php echo base_url('advertising') ?>">
+                    <i class="ni ni-app"></i>
+                    <span class="nav-link-text">Advertising</span>
+                  </a>
+                </li>
+                <li class="nav-item" style="padding-left:30px;">
+                 <a class="nav-link <?php echo ($this->uri->segment(1) == 'push-notifications') ? 'active' : '' ?>" href="<?php echo base_url('push-notifications') ?>">
+                    <i class="ni ni-app"></i>
+                    <span class="nav-link-text">Push Notifications</span>
+                  </a>
+                </li>
+              </ul>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link <?php //echo ($this->uri->segment(1) == 'product-categories') ? 'active' : '' ?>" href="<?php //echo base_url('product-categories') ?>">
