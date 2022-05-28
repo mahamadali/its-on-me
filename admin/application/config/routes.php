@@ -328,3 +328,4 @@ $route['api/product-gift-ideas'] = 'api/Product/productGiftIdeas';
 $route['api/products/search-by-location'] = 'api/Product/searchByProvince';
 $route['api/products/search-by-name'] = 'api/Product/searchByName';
 $route['api/products/search-by-brand'] = 'api/Product/searchByBrand';
+$route['api/user-notifications'] = 'api/Notification/userNotifications';
